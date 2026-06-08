@@ -1,0 +1,14 @@
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["src/index.ts"],
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  target: "node18",
+  format: ["esm"],
+  outDir: "dist",
+  dts: false,
+  skipNodeModulesBundle: true,
+  minify: false,
+});

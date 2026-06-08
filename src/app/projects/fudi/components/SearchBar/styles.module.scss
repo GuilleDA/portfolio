@@ -1,0 +1,38 @@
+@use "../../styles/variables" as v;
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: v.$neutral-50;
+  border: 1px solid v.$neutral-200;
+  border-radius: v.$radius-full;
+  box-shadow: v.$shadow-input;
+  transition: border-color 0.15s ease;
+
+  &:focus-within {
+    border-color: v.$neutral-400;
+  }
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: v.$neutral-900;
+  min-width: 0;
+
+  &::placeholder {
+    color: v.$neutral-500;
+  }
+}
+
+.icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: v.$neutral-500;
+  flex-shrink: 0;
+}

@@ -1,0 +1,126 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: v.$z-topbar;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid v.$border;
+
+  @include m.lg {
+    display: block;
+  }
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: v.$container-max;
+  padding: 0.75rem 1.5rem;
+  margin: 0 auto;
+}
+
+.addressButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: v.$radius-full;
+  text-align: left;
+  transition: background 0.15s ease;
+
+  @include m.hover {
+    background: v.$neutral-100;
+  }
+}
+
+.pin {
+  height: 1rem;
+  width: 1rem;
+  color: v.$pink-500;
+  flex-shrink: 0;
+}
+
+.addressText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.deliverTo {
+  font-size: 11px;
+  color: v.$neutral-500;
+}
+
+.addressLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: v.$neutral-900;
+}
+
+.chevron {
+  height: 0.875rem;
+  width: 0.875rem;
+}
+
+.search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: v.$neutral-50;
+  border: 1px solid v.$neutral-200;
+  border-radius: v.$radius-full;
+  transition: border-color 0.15s ease;
+
+  &:focus-within {
+    border-color: v.$neutral-400;
+  }
+}
+
+.searchIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: v.$neutral-500;
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: v.$neutral-900;
+  min-width: 0;
+
+  &::placeholder {
+    color: v.$neutral-500;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: v.$radius-full;
+  background: linear-gradient(135deg, v.$pink-500, v.$orange-500);
+  color: v.$white;
+  font-size: 13px;
+  font-weight: 600;
+}

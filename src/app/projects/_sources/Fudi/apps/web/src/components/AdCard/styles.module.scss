@@ -1,0 +1,126 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  position: relative;
+  width: 85%;
+  height: 10rem;
+  flex-shrink: 0;
+  border-radius: v.$radius-2xl;
+  overflow: hidden;
+  color: v.$white;
+  scroll-snap-align: start;
+
+  @include m.lg {
+    width: auto;
+    height: 12rem;
+    flex-shrink: 1;
+  }
+}
+
+.shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1rem;
+
+  @include m.lg {
+    padding: 1.25rem;
+  }
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.title {
+  margin-top: 0.25rem;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @include m.lg {
+    font-size: 32px;
+  }
+}
+
+.titleAccent {
+  font-style: italic;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: v.$radius-md;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.emoji {
+  position: absolute;
+  right: -1.5rem;
+  bottom: -1.5rem;
+  font-size: 4.5rem;
+  opacity: 0.9;
+  user-select: none;
+
+  @include m.lg {
+    font-size: 6rem;
+  }
+}
+
+// ==== Tones ====
+
+.emerald {
+  background: v.$emerald-700;
+
+  .titleAccent {
+    color: v.$red-500;
+  }
+  .brand {
+    background: v.$red-600;
+  }
+}
+
+.rose {
+  background: v.$rose-600;
+
+  .titleAccent {
+    color: v.$yellow-300;
+  }
+  .brand {
+    background: v.$neutral-900;
+  }
+}
+
+.amber {
+  background: v.$amber-500;
+
+  .titleAccent {
+    color: v.$neutral-900;
+  }
+  .brand {
+    background: v.$neutral-900;
+  }
+}

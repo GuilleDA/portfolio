@@ -1,0 +1,23 @@
+{
+  "name": "photoi",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "node node_modules/concurrently/dist/bin/concurrently.js \"yarn workspace @photoi/api dev\" \"yarn workspace @photoi/web dev\" --names \"api,web\" --prefix-colors \"blue,magenta\"",
+    "dev:api": "yarn workspace @photoi/api dev",
+    "dev:web": "yarn workspace @photoi/web dev",
+    "build": "yarn workspaces run build",
+    "start": "yarn workspaces run start",
+    "lint": "yarn workspaces run lint",
+    "typecheck": "yarn workspaces run typecheck",
+    "format": "yarn workspaces run format"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "eslint": "^9.10.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2"
+  }
+}

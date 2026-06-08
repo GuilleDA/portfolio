@@ -1,0 +1,108 @@
+.searchPage {
+  min-height: 100vh;
+  background: #000;
+
+  // Asegurar que la galería tenga el espacio correcto para el header fijo
+  // El header tiene una altura aproximada de 76px (12px padding * 2 + contenido)
+  padding-top: 76px;
+
+  @media (max-width: 1024px) {
+    // Header en tablet: 1.5rem padding * 2 = 48px
+    padding-top: 72px;
+  }
+
+  @media (max-width: 768px) {
+    // Header en mobile: 1rem padding * 2 = 32px
+    padding-top: 64px;
+  }
+}
+
+.searchInput {
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    backdrop-filter: blur(10px);
+    width: 300px;
+    height: 40px;
+
+    @media (max-width: 768px) {
+      width: 240px;
+      height: 36px;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__field {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+  }
+
+  &__colorPicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    margin-left: 0.5rem;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 768px) {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

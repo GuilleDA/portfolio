@@ -1,0 +1,172 @@
+.gallery {
+  position: relative;
+  z-index: 10;
+  /* Sin transition - JavaScript controlará todo para sincronización perfecta */
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 1);
+    pointer-events: none; /* No interferir con interacciones */
+    z-index: 1; /* Muy bajo, detrás de todo el contenido */
+    opacity: 0; /* Controlado por JavaScript */
+  }
+
+  @media (max-width: 1024px) {
+    padding: 2rem calc(var(--dynamic-padding, 40px) * 0.25);
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      gap: 6px;
+      max-width: 100%;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      gap: 6px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    overflow: visible;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+
+    &:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    &Hovered {
+      transform: translateY(0) scale(1) !important;
+      z-index: 100 !important;
+      // box-shadow: 0 2.26px 4.53px rgba(235, 134, 255, 0.3), 0 1.13px 3.4px 1.13px rgba(235, 134, 255, 0.2) !important;
+
+      .gallery__imageWrapper {
+        border: 3px solid #FFFFFF;
+        // box-shadow: 0 1.13px 3.4px 1.13px rgba(235, 134, 255, 0.2);
+        // filter: drop-shadow(0 2.26px 4.53px rgba(235, 134, 255, 0.3));
+      }
+
+      .gallery__imageActions {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+
+    &Dimmed {
+      opacity: 0.3;
+      filter: brightness(0.5);
+    }
+  }
+
+  &__imageWrapper {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__imageActions {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+    background: #FFFFFF;
+    border-radius: 20px 0 0 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 101;
+  }
+
+  &__actionButton {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: #000;
+    }
+  }
+
+  &__heartButton {
+    svg {
+      color: #000;
+      fill: none;
+      transition: all 0.2s ease;
+    }
+
+    &Active {
+      svg {
+        color: #FF4444;
+        fill: #FF4444;
+      }
+    }
+  }
+
+  // Offset dinámico para la primera fila - controlado por JavaScript
+  // Los márgenes se controlan frame por frame igual que el padding - sin transiciones CSS
+  // JavaScript controlará todo para sincronización perfecta
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.dynamicPadding {
+  padding: 4rem var(--dynamic-padding, 40px);
+}

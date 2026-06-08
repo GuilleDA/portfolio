@@ -1,0 +1,26 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.image {
+  width: auto;
+}
+
+.sm {
+  height: 2rem;
+}
+
+.md {
+  height: 3rem;
+}
+
+.lg {
+  height: 4rem;
+}

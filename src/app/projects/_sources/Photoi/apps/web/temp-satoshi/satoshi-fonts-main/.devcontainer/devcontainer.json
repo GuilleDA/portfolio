@@ -1,0 +1,10 @@
+{
+  "name": "Fedora",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": { "VARIANT": "35" }
+  },
+  "settings": {},
+  "extensions": ["1dot75cm.rpmspec"],
+  "remoteUser": "vscode"
+}

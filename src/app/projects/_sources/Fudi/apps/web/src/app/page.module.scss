@@ -1,0 +1,46 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.page {
+  min-height: 100dvh;
+  background: v.$white;
+  color: v.$neutral-900;
+}
+
+.shell {
+  @include m.lg {
+    display: flex;
+    gap: 2rem;
+    max-width: v.$container-max;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    margin: 0 auto;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  max-width: v.$mobile-max;
+  margin: 0 auto;
+
+  @include m.lg {
+    max-width: none;
+    flex: 1;
+    margin: 0;
+  }
+}
+
+.mobileOnly {
+  @include m.lg {
+    display: none;
+  }
+}
+
+.searchWrap {
+  padding: 0 1.25rem 0.75rem;
+}
+
+.safeBottom {
+  @include m.safe-bottom;
+  height: 1.5rem;
+}

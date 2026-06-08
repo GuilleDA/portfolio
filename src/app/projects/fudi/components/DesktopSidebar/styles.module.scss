@@ -1,0 +1,98 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: none;
+  position: sticky;
+  top: calc(v.$topbar-height);
+  width: v.$sidebar-width;
+  flex-shrink: 0;
+  height: fit-content;
+  padding-top: 1.5rem;
+  @include m.lg {
+    display: block;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border-radius: v.$radius-xl;
+  font-size: 14px;
+  font-weight: 500;
+  color: v.$neutral-700;
+  text-align: left;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+
+  @include m.hover {
+    background: v.$neutral-100;
+  }
+}
+
+.linkActive {
+  background: v.$neutral-900;
+  color: v.$white;
+
+  @include m.hover {
+    background: v.$neutral-900;
+  }
+}
+
+.linkIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  flex-shrink: 0;
+}
+
+.divider {
+  height: 1px;
+  margin: 1rem 0;
+  background: v.$neutral-200;
+}
+
+.promo {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: v.$radius-2xl;
+  background: linear-gradient(135deg, v.$pink-500, v.$orange-500);
+  color: v.$white;
+  overflow: hidden;
+}
+
+.promoTitle {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.promoSubtitle {
+  margin-top: 0.25rem;
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.promoCta {
+  margin-top: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: v.$radius-full;
+  background: v.$white;
+  color: v.$pink-600;
+  font-size: 12px;
+  font-weight: 600;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
+}

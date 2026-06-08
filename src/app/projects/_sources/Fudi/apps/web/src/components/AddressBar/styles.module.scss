@@ -1,0 +1,36 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.info {
+  min-width: 0;
+  flex: 1;
+}
+
+.address {
+  font-size: 13px;
+  line-height: 1.25;
+  color: v.$neutral-900;
+  @include m.truncate;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: 15px;
+  font-weight: 600;
+  color: v.$neutral-800;
+}
+
+.chevron {
+  height: 1rem;
+  width: 1rem;
+}

@@ -1,0 +1,53 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  padding: 0 1.25rem 1.5rem;
+
+  @include m.lg {
+    padding: 0 0 3rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+}
+
+.heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: v.$neutral-900;
+
+  @include m.lg {
+    font-size: 18px;
+  }
+}
+
+.cta {
+  font-size: 12px;
+  font-weight: 500;
+  color: v.$neutral-500;
+  transition: color 0.15s ease;
+
+  @include m.hover {
+    color: v.$neutral-700;
+  }
+
+  @include m.lg {
+    font-size: 13px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+
+  @include m.lg {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+}

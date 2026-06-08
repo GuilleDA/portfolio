@@ -1,0 +1,29 @@
+{
+  "name": "@photoi/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --onSuccess \"node dist/index.mjs\""
+  },
+  "dependencies": {
+    "@trpc/server": "11.5.1",
+    "dotenv": "^17.2.3",
+    "mongodb": "^6.20.0",
+    "replicate": "^1.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@fastify/cors": "^11.1.0",
+    "fastify": "^5.6.1",
+    "tsup": "^8.5.0"
+  }
+}

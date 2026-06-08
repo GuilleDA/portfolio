@@ -1,0 +1,88 @@
+// ============================== Colors =================================== //
+
+$white: #ffffff;
+$black: #000000;
+
+// Neutrals
+$neutral-50: #fafafa;
+$neutral-100: #f5f5f5;
+$neutral-200: #e5e5e5;
+$neutral-300: #d4d4d4;
+$neutral-400: #a3a3a3;
+$neutral-500: #737373;
+$neutral-600: #525252;
+$neutral-700: #404040;
+$neutral-800: #262626;
+$neutral-900: #171717;
+
+// Brand
+$pink-500: #ec4899;
+$pink-600: #db2777;
+$orange-500: #f97316;
+$red-500: #ef4444;
+$red-600: #dc2626;
+$emerald-700: #047857;
+$rose-600: #e11d48;
+$amber-500: #f59e0b;
+$yellow-300: #fde047;
+
+// Semantic
+$bg: $white;
+$fg: $neutral-900;
+$muted: $neutral-500;
+$border: $neutral-200;
+$surface: $neutral-100;
+
+// ============================== Breakpoints =============================== //
+
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+// ============================== Radii ===================================== //
+
+$radius-md: 6px;
+$radius-lg: 8px;
+$radius-xl: 12px;
+$radius-2xl: 16px;
+$radius-full: 9999px;
+
+// ============================== Shadows =================================== //
+
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-input: 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-inset: inset 0 -2px 4px rgba(0, 0, 0, 0.04);
+$shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.08);
+$shadow-step-active: 0 0 0 4px rgba(236, 72, 153, 0.25);
+
+// ============================== Z-index =================================== //
+
+$z-topbar: 30;
+$z-modal: 50;
+
+// ============================== Typography ================================ //
+
+$font-sans:
+  var(--font-geist-sans),
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  Helvetica,
+  Arial,
+  sans-serif;
+
+$font-mono:
+  var(--font-geist-mono),
+  ui-monospace,
+  SFMono-Regular,
+  Menlo,
+  monospace;
+
+// ============================== Layout =================================== //
+
+$container-max: 1280px;
+$mobile-max: 28rem; // ~448px (max-w-md equivalent)
+$sidebar-width: 15rem; // 240px
+$topbar-height: 72px;

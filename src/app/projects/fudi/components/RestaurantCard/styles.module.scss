@@ -1,0 +1,68 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: v.$radius-2xl;
+  background: v.$neutral-100;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @include m.lg {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: v.$shadow-hover;
+    }
+  }
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  background: linear-gradient(135deg, v.$neutral-200, v.$neutral-100);
+  font-size: 2.25rem;
+
+  @include m.lg {
+    height: 9rem;
+    font-size: 3rem;
+  }
+}
+
+.body {
+  padding: 0.75rem;
+
+  @include m.lg {
+    padding: 1rem;
+  }
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: v.$neutral-900;
+  @include m.truncate;
+
+  @include m.lg {
+    font-size: 14px;
+  }
+}
+
+.tag {
+  font-size: 11px;
+  color: v.$neutral-500;
+  @include m.truncate;
+
+  @include m.lg {
+    font-size: 12px;
+  }
+}
