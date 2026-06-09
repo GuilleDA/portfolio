@@ -74,7 +74,9 @@ export const TAPE_RECENTER: Vector3Tuple = [
   0.061 * TAPE_SCALE,
   0.326 * TAPE_SCALE,
 ];
-/** Medidas del tape ya escalado. */
+/** Dimensiones del bounding box del tape.glb (root rotado 90° en X → parado). */
+export const VHS_TAPE_BOX = [1.0, 0.643, 0.127] as const;
+/** Medidas del tape ya escalado (etiqueta flotante encima). */
 export const VHS_TAPE = {
   width: 1.0 * TAPE_SCALE,
   height: 0.127 * TAPE_SCALE,
@@ -139,4 +141,60 @@ export const CAMERA_ZOOM = {
     TV_SCREEN_WORLD[2] + 1.9,
   ] as Vector3Tuple,
   target: TV_SCREEN_WORLD,
+};
+
+// ---- Celular (PHONE.glb) para la "vista mobile" ----
+/**
+ * Medidas del modelo PHONE.glb (mitad-extentes, medidas del .glb):
+ *   - cuerpo: ~3.10 (x) × 0.49 (y) × 5.65 (z) → es una placa plana con el
+ *     vidrio en la cara superior (+Y).
+ *   - vidrio: zona inset de la cara superior.
+ * Lo rotamos 90° en X (PHONE_ROTATION) para pararlo vertical con la pantalla
+ * mirando a la cámara (+Z). Si la pantalla no calza, poné DEBUG_MARKERS = true
+ * para ver el recuadro verde y ajustá PHONE_* a ojo.
+ */
+const PHONE_BODY = { hx: 1.552, hy: 0.2465, hz: 2.8266 };
+const PHONE_GLASS = { hx: 1.473, hz: 2.682 };
+export const PHONE_SCALE = 0.12;
+/** Parado vertical, con la pantalla (cara superior del modelo) mirando a +Z. */
+export const PHONE_ROTATION: Vector3Tuple = [Math.PI / 2, 0, 0];
+/**
+ * Transform del celular "en la mano": es relativo a la CÁMARA (tipo HUD), así
+ * que siempre aparece sostenido frente a vos. La cámara apunta hacia abajo
+ * (CAMERA_MOBILE) para simular que mirás tu mano.
+ *   - position: [x derecha, y abajo(-), z adelante(-)] en espacio de cámara.
+ *   - rotation: inclinación del celular (x negativo = la pantalla mira hacia vos).
+ */
+export const PHONE_HELD = {
+  position: [0, -0.05, -1.4] as Vector3Tuple,
+  rotation: [-0.35, 0, 0] as Vector3Tuple,
+};
+/** Cuánto sube el celular en la animación de entrada (desde abajo de cuadro). */
+export const PHONE_ENTRY_DROP = 1.3;
+/**
+ * Espera (en segundos) antes de que el celular suba, para que primero la cámara
+ * termine de mirar hacia abajo y recién después aparezca el celular.
+ */
+export const PHONE_ENTRY_DELAY = 0.9;
+/** Medidas de la pantalla del celular (ya escalada). La pantalla es rectangular
+ * y llena el vidrio del modelo. */
+export const PHONE_SCREEN_SIZE = {
+  width: PHONE_GLASS.hx * 2 * PHONE_SCALE,
+  height: PHONE_GLASS.hz * 2 * PHONE_SCALE,
+};
+/** Centro de la pantalla relativo al grupo del celular (cara frontal +Z). */
+export const PHONE_SCREEN_OFFSET: Vector3Tuple = [
+  0,
+  0,
+  PHONE_BODY.hy * PHONE_SCALE + 0.006,
+];
+/** Encuadre de la cámara en vista mobile: misma posición que el zoom pero
+ * mirando hacia abajo (como cuando bajás la vista a tu mano). */
+export const CAMERA_MOBILE = {
+  position: CAMERA_ZOOM.position,
+  target: [
+    TV_SCREEN_WORLD[0],
+    TV_SCREEN_WORLD[1] - 2.0,
+    TV_SCREEN_WORLD[2],
+  ] as Vector3Tuple,
 };

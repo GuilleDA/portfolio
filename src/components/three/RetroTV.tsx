@@ -27,15 +27,6 @@ GLBModel.preload("/models/tv.glb");
  * del VCR (PLAY para visitar el proyecto, EJECT para expulsar el cassette).
  */
 export function RetroTV() {
-  const { playback, insertedProject } = useExperience();
-  const hasTape = insertedProject !== null;
-
-  const hint =
-    playback !== "idle"
-      ? "CARGANDO…"
-      : hasTape
-      ? "▶ PULSÁ PLAY EN EL REPRODUCTOR"
-      : "ARRASTRÁ UN VHS AL REPRODUCTOR";
 
   return (
     <group position={TV_GROUP_POSITION}>
@@ -56,22 +47,6 @@ export function RetroTV() {
           </mesh>
         )}
       </group>
-
-      {/* <Text
-        position={[
-          TV_SCREEN_OFFSET[0],
-          TV_SCREEN_OFFSET[1] + TV_SCREEN_SIZE.height / 2 + 0.35,
-          TV_SCREEN_OFFSET[2],
-        ]}
-        fontSize={0.16}
-        color={hasTape ? "#ffffff" : "#9aa0a6"}
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.004}
-        outlineColor="#000000"
-      >
-        {hint}
-      </Text> */}
 
       <VCRControls />
     </group>

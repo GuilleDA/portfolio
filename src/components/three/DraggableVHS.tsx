@@ -3,7 +3,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
-import { Group, Plane, Vector3, MathUtils } from "three";
+import { Group, BackSide, Plane, Vector3, MathUtils } from "three";
 import { tapeProjects, type Project } from "@/data/projects";
 import { GLBModel } from "./GLBModel";
 import {
@@ -28,6 +28,7 @@ const DROP_NDC = 0.17;
 
 function DraggableTape({ project, index }: { project: Project; index: number }) {
   const ref = useRef<Group>(null);
+  const modelRef = useRef<Group>(null);
   const { camera } = useThree();
   const {
     insertedId,
@@ -61,6 +62,13 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
     // Escala: desaparece (0) cuando está insertado, aparece (1) si no.
     const targetScale = isInserted ? 0 : 1;
     g.scale.setScalar(MathUtils.lerp(g.scale.x, targetScale, 0.18));
+
+    // Pop sutil al hover/drag.
+    const mg = modelRef.current;
+    if (mg) {
+      const hs = highlight ? 1.05 : 1;
+      // mg.scale.setScalar(MathUtils.lerp(mg.scale.x, hs, 0.2));
+    }
 
     if (isDragging) return; // posición controlada por el puntero
 
@@ -137,8 +145,20 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
         }
       }}
     >
-      {/* Modelo del cassette (recentrado en el origen del grupo) */}
-      <GLBModel url="/models/tape.glb" scale={TAPE_SCALE} position={TAPE_RECENTER} />
+      {/* Modelo + contorno acotado al tamaño del cassette (no recorre el GLB). */}
+      <group ref={modelRef}>
+        <GLBModel
+          url="/models/tape.glb"
+          scale={TAPE_SCALE}
+          position={TAPE_RECENTER}
+        />
+        {highlight && (
+          <mesh position={[-0.020, 0.43, 0.40]} scale={TAPE_SCALE}>
+            <boxGeometry args={[1.1, 0.7, 0.3]} />
+            <meshBasicMaterial color={project.color} side={BackSide} />
+          </mesh>
+        )}
+      </group>
 
       {/* Etiqueta de color del proyecto + título, sobre la cara superior */}
       <mesh position={[0, H / 2 + 0.33, 0.37]} rotation={[0, 0, 0]}>
@@ -146,7 +166,7 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
         <meshStandardMaterial
           color={project.color}
           emissive={project.color}
-          emissiveIntensity={highlight ? 0.55 : 0.2}
+          emissiveIntensity={highlight ? 0.75 : 0.2}
           roughness={0.5}
         />
       </mesh>
@@ -162,14 +182,6 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
       >
         {`${project.title}`}
       </Text>
-
-      {/* Halo al pasar el cursor / arrastrar */}
-      {highlight && (
-        <mesh position={[0, -H / 2 + 0.48, 0]} rotation={[0, 0, 0]}>
-          <planeGeometry args={[W * 1.3, D * 1.3]} />
-          <meshBasicMaterial color={project.color} transparent opacity={0.2} />
-        </mesh>
-      )}
     </group>
   );
 }

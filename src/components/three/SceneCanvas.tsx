@@ -13,7 +13,7 @@ export function SceneCanvas() {
       <Canvas
         shadows="percentage"
         dpr={[1, 2]}
-        gl={{ antialias: true }}
+        gl={{ antialias: true,  }}
         camera={{ position: CAMERA_DEFAULT.position, fov: 45, near: 0.1, far: 100 }}
       >
         <Suspense fallback={null}>

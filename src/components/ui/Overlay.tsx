@@ -5,10 +5,11 @@ import { useExperience } from "@/store/experience";
 
 /** Capa de UI 2D superpuesta sobre la escena 3D. */
 export function Overlay() {
-  const { insertedProject, playback, closePlayer } = useExperience();
+  const { insertedProject, playback, closePlayer, viewMode, toggleViewMode } =
+    useExperience();
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-10 p-6 md:p-10">
+    <div className="pointer-events-none fixed inset-0 z-[200] p-6 md:p-10">
       {/* Barra del reproductor: título + botón para volver a la escena 3D. */}
       <AnimatePresence>
         {playback === "playing" && insertedProject && (
@@ -22,13 +23,24 @@ export function Overlay() {
             <p className="font-mono text-sm text-white/80">
               ▶ {insertedProject.title.toUpperCase()}
             </p>
-            <button
-              type="button"
-              onClick={closePlayer}
-              className="pointer-events-auto rounded-full border border-white/20 bg-black/60 px-4 py-2 font-mono text-sm text-white backdrop-blur transition hover:border-white/50 hover:bg-black/80"
-            >
-              ⏏ Volver
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={toggleViewMode}
+                className="pointer-events-auto rounded-full border border-white/20 bg-black/60 px-4 py-2 font-mono text-sm text-white backdrop-blur transition hover:border-white/50 hover:bg-black/80"
+              >
+                {viewMode === "desktop"
+                  ? "📱 View mobile version"
+                  : "🖥 View desktop version"}
+              </button>
+              <button
+                type="button"
+                onClick={closePlayer}
+                className="pointer-events-auto rounded-full border border-white/20 bg-black/60 px-4 py-2 font-mono text-sm text-white backdrop-blur transition hover:border-white/50 hover:bg-black/80"
+              >
+                ⏏ Volver
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

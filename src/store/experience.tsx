@@ -13,6 +13,9 @@ import { projects, type Project } from "@/data/projects";
 /** Estado del "reproductor": qué hace la cámara ahora mismo. */
 export type PlaybackState = "idle" | "zooming" | "playing";
 
+/** Vista del proyecto en reproducción: escritorio (TV) o mobile (celular). */
+export type ViewMode = "desktop" | "mobile";
+
 type ExperienceContextValue = {
   /** Proyecto cuyo VHS está insertado en la TV, o null si no hay ninguno. */
   insertedProject: Project | null;
@@ -29,6 +32,10 @@ type ExperienceContextValue = {
   onZoomComplete: () => void;
   /** Cierra el reproductor (iframe) y vuelve al estado inicial. */
   closePlayer: () => void;
+  /** Vista actual del proyecto en reproducción (escritorio o mobile). */
+  viewMode: ViewMode;
+  /** Alterna entre la vista de escritorio (TV) y la vista mobile (celular). */
+  toggleViewMode: () => void;
   /** id del VHS bajo el cursor (resaltar), o null. */
   hoveredId: string | null;
   setHoveredId: (id: string | null) => void;
@@ -42,6 +49,7 @@ const ExperienceContext = createContext<ExperienceContextValue | null>(null);
 export function ExperienceProvider({ children }: { children: ReactNode }) {
   const [insertedId, setInsertedId] = useState<string | null>(null);
   const [playback, setPlayback] = useState<PlaybackState>("idle");
+  const [viewMode, setViewMode] = useState<ViewMode>("desktop");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
 
@@ -64,9 +72,13 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const play = useCallback(() => {
-    setPlayback((current) =>
-      current === "idle" && insertedId !== null ? "zooming" : current
-    );
+    setPlayback((current) => {
+      if (current === "idle" && insertedId !== null) {
+        setViewMode("desktop");
+        return "zooming";
+      }
+      return current;
+    });
   }, [insertedId]);
 
   const onZoomComplete = useCallback(() => {
@@ -78,7 +90,20 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, [insertedId]);
 
   const closePlayer = useCallback(() => {
-    setPlayback((current) => (current === "playing" ? "idle" : current));
+    setPlayback((current) => {
+      if (current === "playing") {
+        setViewMode("desktop");
+        return "idle";
+      }
+      return current;
+    });
+  }, []);
+
+  const toggleViewMode = useCallback(() => {
+    // Nota: el botón solo se muestra durante "playing", así que basta con
+    // alternar la vista. (No anidar setState dentro de otro updater: en
+    // StrictMode los updaters corren 2 veces y el toggle se cancelaría.)
+    setViewMode((mode) => (mode === "desktop" ? "mobile" : "desktop"));
   }, []);
 
   const value = useMemo<ExperienceContextValue>(
@@ -91,6 +116,8 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       play,
       onZoomComplete,
       closePlayer,
+      viewMode,
+      toggleViewMode,
       hoveredId,
       setHoveredId,
       draggingId,
@@ -105,6 +132,8 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       play,
       onZoomComplete,
       closePlayer,
+      viewMode,
+      toggleViewMode,
       hoveredId,
       draggingId,
     ]

@@ -5,7 +5,7 @@ import { useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import gsap from "gsap";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import { CAMERA_DEFAULT, CAMERA_ZOOM } from "./layout";
+import { CAMERA_DEFAULT, CAMERA_MOBILE, CAMERA_ZOOM } from "./layout";
 import { useExperience } from "@/store/experience";
 
 /**
@@ -15,7 +15,7 @@ import { useExperience } from "@/store/experience";
 export function CameraRig() {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera } = useThree();
-  const { playback, onZoomComplete, draggingId } = useExperience();
+  const { playback, viewMode, onZoomComplete, draggingId } = useExperience();
   const tween = useRef<gsap.core.Timeline | null>(null);
   const hasZoomed = useRef(false);
 
@@ -37,81 +37,52 @@ export function CameraRig() {
   useEffect(() => {
     const ctrl = controls.current;
 
-    if (playback === "zooming") {
-      hasZoomed.current = true;
+    /** Anima la cámara (y el target de OrbitControls) a un encuadre. */
+    const flyTo = (
+      frame: { position: typeof CAMERA_DEFAULT.position; target: typeof CAMERA_DEFAULT.target },
+      duration: number,
+      onComplete?: () => void
+    ) => {
       if (ctrl) ctrl.enabled = false;
-
       tween.current?.kill();
       const tl = gsap.timeline({
-        defaults: { duration: 1.5, ease: "power3.inOut" },
+        defaults: { duration, ease: "power3.inOut" },
         onUpdate: () => ctrl?.update(),
-        onComplete: onZoomComplete,
+        onComplete,
       });
-
       tl.to(
         camera.position,
-        {
-          x: CAMERA_ZOOM.position[0],
-          y: CAMERA_ZOOM.position[1],
-          z: CAMERA_ZOOM.position[2],
-        },
+        { x: frame.position[0], y: frame.position[1], z: frame.position[2] },
         0
       );
-
       if (ctrl) {
         tl.to(
           ctrl.target,
-          {
-            x: CAMERA_ZOOM.target[0],
-            y: CAMERA_ZOOM.target[1],
-            z: CAMERA_ZOOM.target[2],
-          },
+          { x: frame.target[0], y: frame.target[1], z: frame.target[2] },
           0
         );
       }
       tween.current = tl;
+    };
+
+    if (playback === "zooming") {
+      hasZoomed.current = true;
+      flyTo(CAMERA_ZOOM, 1.5, onZoomComplete);
+    } else if (playback === "playing") {
+      // En reproducción alternamos entre el encuadre de la TV y el del celular.
+      flyTo(viewMode === "mobile" ? CAMERA_MOBILE : CAMERA_ZOOM, 1.1);
     } else if (playback === "idle" && hasZoomed.current) {
       // Volvemos del reproductor: animamos la cámara a su posición inicial.
       hasZoomed.current = false;
-      if (ctrl) ctrl.enabled = false;
-
-      tween.current?.kill();
-      const tl = gsap.timeline({
-        defaults: { duration: 1.2, ease: "power3.inOut" },
-        onUpdate: () => ctrl?.update(),
-        onComplete: () => {
-          if (ctrl) ctrl.enabled = true;
-        },
+      flyTo(CAMERA_DEFAULT, 1.2, () => {
+        if (ctrl) ctrl.enabled = true;
       });
-
-      tl.to(
-        camera.position,
-        {
-          x: CAMERA_DEFAULT.position[0],
-          y: CAMERA_DEFAULT.position[1],
-          z: CAMERA_DEFAULT.position[2],
-        },
-        0
-      );
-
-      if (ctrl) {
-        tl.to(
-          ctrl.target,
-          {
-            x: CAMERA_DEFAULT.target[0],
-            y: CAMERA_DEFAULT.target[1],
-            z: CAMERA_DEFAULT.target[2],
-          },
-          0
-        );
-      }
-      tween.current = tl;
     }
 
     return () => {
       tween.current?.kill();
     };
-  }, [playback, camera, onZoomComplete]);
+  }, [playback, viewMode, camera, onZoomComplete]);
 
   return (
     <OrbitControls
