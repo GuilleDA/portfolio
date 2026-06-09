@@ -75,7 +75,7 @@ export function CRTScreen({ width, height, compact = false }: CRTScreenProps) {
             outlineWidth={0.006}
             outlineColor="#000000"
           >
-            SIN SEÑAL
+            NO SIGNAL
           </Text>
           <Text
             position={[0, -height * 0.18 , 0.02]}
@@ -86,7 +86,7 @@ export function CRTScreen({ width, height, compact = false }: CRTScreenProps) {
             anchorX="center"
             anchorY="middle"
           >
-            insertá un VHS para reproducir
+            insert a tape to play
           </Text>
         </>
       )}
