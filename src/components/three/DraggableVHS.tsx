@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
 import { Group, BackSide, Plane, Vector3, MathUtils } from "three";
 import { tapeProjects, type Project } from "@/data/projects";
 import { GLBModel } from "./GLBModel";
@@ -25,6 +25,65 @@ const floatingTapes = tapeProjects.slice(0, 2);
 const N = floatingTapes.length;
 /** A qué distancia (en pantalla, NDC) del slot se considera "insertado" al soltar. */
 const DROP_NDC = 0.17;
+
+/** Área máxima del logo sobre la etiqueta del cassette. */
+const LOGO_MAX_W = W * 0.4;
+const LOGO_MAX_H = D * 0.3;
+
+function fitPlaneToAspect(
+  imgW: number,
+  imgH: number,
+  maxW: number,
+  maxH: number,
+): [number, number] {
+  if (imgW <= 0 || imgH <= 0) return [maxW, maxH];
+  const aspect = imgW / imgH;
+  const boxAspect = maxW / maxH;
+  if (aspect >= boxAspect) return [maxW, maxW / aspect];
+  return [maxH * aspect, maxH];
+}
+
+/** Logo del proyecto sobre la etiqueta del cassette. */
+function TapeLogo({ logo }: { logo: string }) {
+  const logoTexture = useTexture(logo);
+  const [planeSize, setPlaneSize] = useState<[number, number]>([
+    LOGO_MAX_W,
+    LOGO_MAX_H,
+  ]);
+
+  useEffect(() => {
+    const img = logoTexture.image as HTMLImageElement | undefined;
+    if (!img) return;
+
+    const update = () => {
+      setPlaneSize(
+        fitPlaneToAspect(
+          img.naturalWidth || img.width,
+          img.naturalHeight || img.height,
+          LOGO_MAX_W,
+          LOGO_MAX_H,
+        ),
+      );
+    };
+
+    if (img.complete && (img.naturalWidth || img.width)) {
+      update();
+      return;
+    }
+
+    img.addEventListener("load", update);
+    return () => img.removeEventListener("load", update);
+  }, [logoTexture]);
+
+  const [planeW, planeH] = planeSize;
+
+  return (
+    <mesh position={[0, H / 2 + 0.33, 0.36205]} rotation={[0, 0, 0]}>
+      <planeGeometry args={[planeW, planeH]} />
+      <meshBasicMaterial map={logoTexture} transparent opacity={1} />
+    </mesh>
+  );
+}
 
 function DraggableTape({ project, index }: { project: Project; index: number }) {
   const ref = useRef<Group>(null);
@@ -63,12 +122,9 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
     const targetScale = isInserted ? 0 : 1;
     g.scale.setScalar(MathUtils.lerp(g.scale.x, targetScale, 0.18));
 
-    // Pop sutil al hover/drag.
-    const mg = modelRef.current;
-    if (mg) {
-      const hs = highlight ? 1.05 : 1;
-      // mg.scale.setScalar(MathUtils.lerp(mg.scale.x, hs, 0.2));
-    }
+    // Pop sutil al hover/drag (desactivado por ahora).
+    // const mg = modelRef.current;
+    // if (mg) mg.scale.setScalar(MathUtils.lerp(mg.scale.x, highlight ? 1.05 : 1, 0.2));
 
     if (isDragging) return; // posición controlada por el puntero
 
@@ -161,7 +217,7 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
       </group>
 
       {/* Etiqueta de color del proyecto + título, sobre la cara superior */}
-      <mesh position={[0, H / 2 + 0.33, 0.37]} rotation={[0, 0, 0]}>
+      <mesh position={[0, H / 2 + 0.33, 0.362]} rotation={[0, 0, 0]}>
         <planeGeometry args={[W * 0.45, D * 0.5]} />
         <meshStandardMaterial
           color={project.color}
@@ -170,18 +226,7 @@ function DraggableTape({ project, index }: { project: Project; index: number }) 
           roughness={0.5}
         />
       </mesh>
-      <Text
-        position={[0, H / 2 + 0.33, 0.38]}
-        rotation={[0, 0, 0]}
-        fontSize={0.085}
-        maxWidth={W * 0.74}
-        textAlign="center"
-        color="#0b0b0b"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {`${project.title}`}
-      </Text>
+      {project.logo ? <TapeLogo key={project.logo} logo={project.logo} /> : null}
     </group>
   );
 }

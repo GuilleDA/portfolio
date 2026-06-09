@@ -130,7 +130,7 @@ export const VCR_BUTTON_RADIUS = 0.13;
 
 // ---- Cámara ----
 export const CAMERA_DEFAULT = {
-  position: [0.6, 2.0, 9.4] as Vector3Tuple,
+  position: [0.6, 3, 9.4] as Vector3Tuple,
   target: [0, 1.35, 0] as Vector3Tuple,
 };
 /** Encuadre final del zoom: la pantalla del TV casi a pantalla completa. */

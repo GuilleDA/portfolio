@@ -13,6 +13,8 @@ export type Project = {
   color: string;
   /** Año o etiqueta corta para la estética retro */
   year: string;
+  /** Logo del proyecto */
+  logo?: string;
 };
 
 /**
@@ -30,6 +32,7 @@ export const projects: Project[] = [
     url: "http://localhost:3000/projects/fudi",
     color: "#FF0000",
     year: "01",
+    logo: "/projects/fudi/logo.png",
   },
   {
     id: "synth-dashboard",
@@ -38,8 +41,9 @@ export const projects: Project[] = [
     description:
       "Panel de analítica con visualizaciones interactivas y modo tiempo real.",
     url: "http://localhost:3000/projects/photoi",
-    color: "#ff4d6d",
+    color: "#000000",
     year: "02",
+    logo: "/projects/photoi/logo.png",
   },
   {
     id: "arcade-game",
@@ -50,6 +54,7 @@ export const projects: Project[] = [
     url: "http://localhost:3000/projects/deck-game/index.html",
     color: "#7c4dff",
     year: "04",
+    // logo: "/projects/deck-game/logo.png",
   },
 ];
 

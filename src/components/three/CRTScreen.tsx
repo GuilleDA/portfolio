@@ -107,21 +107,6 @@ export function CRTScreen({ width, height, compact = false }: CRTScreenProps) {
           >
             {insertedProject.title}
           </Text>
-
-          {/* Subtítulo (solo en la pantalla grande) */}
-          {!compact && (
-            <Text
-              position={[0, -height * 0.28 + 0.08, 0.02]}
-              fontSize={height * 0.1}
-              color={tint}
-              anchorX="center"
-              anchorY="middle"
-              outlineWidth={0.003}
-              outlineColor="#000000"
-            >
-              {insertedProject.subtitle.toUpperCase()}
-            </Text>
-          )}
         </>
       )}
 
