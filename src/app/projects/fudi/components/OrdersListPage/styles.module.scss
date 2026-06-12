@@ -1,0 +1,273 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 1.25rem 4rem;
+  color: v.$neutral-900;
+
+  @include m.lg {
+    padding: 1.5rem 0 3rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  @include m.lg {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$neutral-900;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  @include m.lg {
+    font-size: 24px;
+  }
+}
+
+.backIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+
+  @include m.lg {
+    display: none;
+  }
+}
+
+.count {
+  font-size: 13px;
+  font-weight: 600;
+  color: v.$neutral-500;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  @include m.lg {
+    max-width: 42rem;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1rem 1.1rem;
+  border-radius: v.$radius-2xl;
+  background: v.$white;
+  border: 1px solid v.$neutral-200;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  color: inherit;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    border-color: v.$neutral-300;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.rowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: v.$radius-full;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.statusActive {
+  background: rgba(255, 178, 228, 0.25);
+  color: #c2185b;
+}
+
+.statusDelivered {
+  background: v.$neutral-100;
+  color: v.$neutral-700;
+}
+
+.statusDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.rowId {
+  font-size: 13px;
+  font-weight: 700;
+  color: v.$neutral-500;
+}
+
+.rowDate {
+  font-size: 13px;
+  color: v.$neutral-500;
+}
+
+.avatars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: v.$radius-full;
+  background: v.$neutral-900;
+  color: v.$white;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-style: italic;
+  flex-shrink: 0;
+  border: 2px solid v.$white;
+}
+
+.avatar + .avatar {
+  margin-left: -0.6rem;
+}
+
+.restaurantsLabel {
+  flex: 1;
+  min-width: 0;
+  margin-left: 0.5rem;
+  font-size: 14px;
+  font-weight: 600;
+  color: v.$neutral-900;
+  @include m.truncate;
+}
+
+.rowFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid v.$neutral-100;
+}
+
+.rowMeta {
+  font-size: 13px;
+  color: v.$neutral-500;
+}
+
+.rowTotal {
+  font-size: 15px;
+  font-weight: 800;
+  color: v.$neutral-900;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 3rem 0;
+  padding: 2rem 1.5rem;
+  border-radius: v.$radius-2xl;
+  background: v.$white;
+  border: 1px solid v.$neutral-200;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+
+  @include m.lg {
+    margin: 4rem auto;
+    max-width: 28rem;
+  }
+}
+
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  border-radius: v.$radius-full;
+  background: v.$neutral-100;
+  color: v.$neutral-500;
+  margin-bottom: 0.75rem;
+}
+
+.emptyBag {
+  height: 1.75rem;
+  width: 1.75rem;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: v.$neutral-900;
+}
+
+.emptyText {
+  margin-top: 0.4rem;
+  font-size: 13px;
+  color: v.$neutral-500;
+}
+
+.emptyCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: v.$radius-full;
+  background: v.$neutral-900;
+  color: v.$white;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: v.$neutral-800;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}

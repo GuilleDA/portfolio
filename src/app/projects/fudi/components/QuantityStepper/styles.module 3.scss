@@ -1,0 +1,55 @@
+@use "../../styles/variables" as v;
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: v.$radius-full;
+  background: v.$neutral-900;
+  color: v.$white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.light {
+  background: v.$white;
+  color: v.$neutral-900;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: v.$radius-full;
+  color: inherit;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.light .button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.count {
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}

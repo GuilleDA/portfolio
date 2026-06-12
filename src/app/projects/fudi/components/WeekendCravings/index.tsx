@@ -1,32 +1,18 @@
+import {
+  listRestaurantSummaries,
+  type RestaurantSummary,
+} from "../../lib/restaurants";
 import { RestaurantCard } from "../RestaurantCard";
 import styles from "./styles.module.scss";
 
-type Restaurant = {
-  id: string;
-  name: string;
-  tag: string;
-  emoji: string;
-};
-
 type WeekendCravingsProps = {
-  items?: Restaurant[];
+  items?: RestaurantSummary[];
   heading?: string;
   ctaLabel?: string;
 };
 
-const DEFAULT_ITEMS: Restaurant[] = [
-  { id: "1", name: "Burger Bros", tag: "Burgers • 25 min", emoji: "🍔" },
-  { id: "2", name: "Tokyo Bowl", tag: "Asian • 30 min", emoji: "🍜" },
-  { id: "3", name: "Green Garden", tag: "Healthy • 20 min", emoji: "🥗" },
-  { id: "4", name: "Sweet Spot", tag: "Desserts • 15 min", emoji: "🍦" },
-  { id: "5", name: "Papa Johns", tag: "Pizza • 35 min", emoji: "🍕" },
-  { id: "6", name: "Sushi Club", tag: "Sushi • 40 min", emoji: "🍣" },
-  { id: "7", name: "Bean & Co", tag: "Coffee • 10 min", emoji: "☕" },
-  { id: "8", name: "Juice Bar", tag: "Drinks • 15 min", emoji: "🥤" },
-];
-
 export function WeekendCravings({
-  items = DEFAULT_ITEMS,
+  items = listRestaurantSummaries(),
   heading = "Weekend Cravings",
   ctaLabel = "See all",
 }: WeekendCravingsProps) {
@@ -43,8 +29,14 @@ export function WeekendCravings({
           <li key={item.id}>
             <RestaurantCard
               name={item.name}
-              tag={item.tag}
+              time={item.deliveryTime}
+              price={item.deliveryPrice}
+              image={item.image}
+              imageAlt={item.imageAlt}
               emoji={item.emoji}
+              rating={item.rating}
+              hasDiscount={item.hasDiscount}
+              href={`/projects/fudi/restaurant/${item.id}`}
             />
           </li>
         ))}

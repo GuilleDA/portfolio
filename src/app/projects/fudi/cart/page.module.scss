@@ -1,0 +1,29 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.page {
+  min-height: 100dvh;
+  background: v.$white;
+  color: v.$neutral-900;
+}
+
+.shell {
+  @include m.lg {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: v.$white;
+
+  @include m.lg {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}

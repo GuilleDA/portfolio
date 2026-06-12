@@ -1,6 +1,17 @@
 import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.scss";
 import { TRPCProvider } from "./components/TRPCProvider";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Fudi",
@@ -15,14 +26,20 @@ export const viewport: Viewport = {
   themeColor: "#000000",
 };
 
-export default function FudiLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <TRPCProvider>
-      <div className="fudiScope">{children}</div>
-    </TRPCProvider>
+    <html lang="es">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <TRPCProvider>
+          {children}
+        </TRPCProvider>
+      </body>
+    </html>
   );
 }

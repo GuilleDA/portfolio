@@ -1,6 +1,6 @@
 'use client';
 
-import { trpc } from '../lib/trpc';
+import { trpc } from '../../lib/trpc';
 import { useState } from 'react';
 
 export default function Home() {

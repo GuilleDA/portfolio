@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ComponentType, SVGProps } from "react";
 import {
   BagIcon,
@@ -14,13 +18,12 @@ import styles from "./styles.module.scss";
 type NavItem = {
   label: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  active?: boolean;
   href?: string;
 };
 
 const PRIMARY_ITEMS: NavItem[] = [
-  { label: "Home", icon: HomeIcon, active: true },
-  { label: "Orders", icon: BagIcon },
+  { label: "Home", icon: HomeIcon, href: "/projects/fudi" },
+  { label: "Orders", icon: BagIcon, href: "/projects/fudi/orders" },
   { label: "Favorites", icon: HeartIcon },
   { label: "Promotions", icon: GiftIcon },
   { label: "Profile", icon: UserIcon },
@@ -31,12 +34,24 @@ const FOOTER_ITEMS: NavItem[] = [
   { label: "Help", icon: HelpIcon },
 ];
 
+function isActive(pathname: string, href?: string): boolean {
+  if (!href) return false;
+  if (href === "/projects/fudi") return pathname === "/projects/fudi";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function DesktopSidebar() {
+  const pathname = usePathname() ?? "/projects/fudi";
+
   return (
     <aside className={styles.root}>
       <nav className={styles.nav}>
         {PRIMARY_ITEMS.map((item) => (
-          <SidebarLink key={item.label} item={item} />
+          <SidebarLink
+            key={item.label}
+            item={item}
+            active={isActive(pathname, item.href)}
+          />
         ))}
       </nav>
 
@@ -44,7 +59,11 @@ export function DesktopSidebar() {
 
       <nav className={styles.nav}>
         {FOOTER_ITEMS.map((item) => (
-          <SidebarLink key={item.label} item={item} />
+          <SidebarLink
+            key={item.label}
+            item={item}
+            active={isActive(pathname, item.href)}
+          />
         ))}
       </nav>
 
@@ -59,13 +78,26 @@ export function DesktopSidebar() {
   );
 }
 
-function SidebarLink({ item }: { item: NavItem }) {
+type SidebarLinkProps = {
+  item: NavItem;
+  active: boolean;
+};
+
+function SidebarLink({ item, active }: SidebarLinkProps) {
   const Icon = item.icon;
+  const className = cx(styles.link, active && styles.linkActive);
+
+  if (item.href) {
+    return (
+      <Link href={item.href} className={className}>
+        <Icon className={styles.linkIcon} aria-hidden />
+        {item.label}
+      </Link>
+    );
+  }
+
   return (
-    <button
-      type="button"
-      className={cx(styles.link, item.active && styles.linkActive)}
-    >
+    <button type="button" className={className}>
       <Icon className={styles.linkIcon} aria-hidden />
       {item.label}
     </button>

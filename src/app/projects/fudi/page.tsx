@@ -11,35 +11,35 @@ import styles from "./page.module.scss";
 
 const ADDRESS_FULL = "Av. libertador 1234, Nuñez, Buenos Aires";
 const ADDRESS_SHORT = "Av. libertador 1234, Nuñez";
-const CART_COUNT = 2;
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <PromoStrip />
-      <DesktopTopBar address={ADDRESS_SHORT} cartCount={CART_COUNT} />
+      <DesktopTopBar address={ADDRESS_SHORT} />
 
       <div className={styles.shell}>
         <DesktopSidebar />
 
         <main className={styles.main}>
-          <div className={styles.mobileOnly}>
-            <AddressBar
-              address={ADDRESS_FULL}
-              label="Home"
-              cartCount={CART_COUNT}
-            />
-            <div className={styles.searchWrap}>
-              <SearchBar />
+          <div className={styles.topSection}>
+            <div className={styles.mobileOnly}>
+              <AddressBar address={ADDRESS_FULL} label="Home" />
+              <div className={styles.searchWrap}>
+                <SearchBar />
+              </div>
             </div>
+
+            <Categories />
           </div>
 
-          <Categories />
-          <OrderInProgress />
-          <AdsCarousel />
-          <WeekendCravings />
+          <div className={styles.contentSection}>
+            <OrderInProgress />
+            <AdsCarousel />
+            <WeekendCravings />
 
-          <div className={styles.safeBottom} />
+            <div className={styles.safeBottom} />
+          </div>
         </main>
       </div>
     </div>

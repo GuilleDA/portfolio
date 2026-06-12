@@ -1,3 +1,7 @@
+"use client";
+
+import { useAtomValue } from "jotai";
+import { cartItemCountAtom } from "../../atoms/cart";
 import { CartIcon, ChevronDown } from "../icons";
 import { IconButton } from "../IconButton";
 import styles from "./styles.module.scss";
@@ -8,7 +12,10 @@ type AddressBarProps = {
   cartCount?: number;
 };
 
-export function AddressBar({ address, label, cartCount = 0 }: AddressBarProps) {
+export function AddressBar({ address, label, cartCount }: AddressBarProps) {
+  const cartCountFromAtom = useAtomValue(cartItemCountAtom);
+  const badge = cartCount ?? cartCountFromAtom;
+
   return (
     <header className={styles.root}>
       <div className={styles.info}>
@@ -18,7 +25,7 @@ export function AddressBar({ address, label, cartCount = 0 }: AddressBarProps) {
           <ChevronDown className={styles.chevron} aria-hidden />
         </button>
       </div>
-      <IconButton label="Cart" badge={cartCount}>
+      <IconButton label="Cart" badge={badge} href="projects/fudi/cart">
         <CartIcon />
       </IconButton>
     </header>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { cx } from "../../lib/cx";
 import styles from "./styles.module.scss";
@@ -7,6 +8,7 @@ type IconButtonProps = {
   label: string;
   badge?: number | string;
   variant?: "ghost" | "filled";
+  href?: string;
   onClick?: () => void;
 };
 
@@ -15,19 +17,36 @@ export function IconButton({
   label,
   badge,
   variant = "ghost",
+  href,
   onClick,
 }: IconButtonProps) {
+  const className = cx(styles.root, styles[variant]);
+
+  const content = (
+    <>
+      {children}
+      {badge !== undefined && badge !== 0 && (
+        <span className={styles.badge}>{badge}</span>
+      )}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} aria-label={label} className={className}>
+        {content}
+      </Link>
+    );
+  }
+
   return (
     <button
       type="button"
       aria-label={label}
       onClick={onClick}
-      className={cx(styles.root, styles[variant])}
+      className={className}
     >
-      {children}
-      {badge !== undefined && badge !== 0 && (
-        <span className={styles.badge}>{badge}</span>
-      )}
+      {content}
     </button>
   );
 }

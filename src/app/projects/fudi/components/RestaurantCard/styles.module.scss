@@ -4,13 +4,8 @@
 .root {
   display: block;
   width: 100%;
-  overflow: hidden;
-  border-radius: v.$radius-2xl;
-  background: v.$neutral-100;
   text-align: left;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 
   &:active {
     transform: scale(0.98);
@@ -19,50 +14,118 @@
   @include m.lg {
     &:hover {
       transform: translateY(-4px);
-      box-shadow: v.$shadow-hover;
     }
   }
 }
 
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: v.$radius-2xl;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, v.$neutral-200, v.$neutral-100);
+}
+
 .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 6rem;
-  background: linear-gradient(135deg, v.$neutral-200, v.$neutral-100);
-  font-size: 2.25rem;
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+}
+
+.discount {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: auto;
+  height: 2rem;
 
   @include m.lg {
-    height: 9rem;
-    font-size: 3rem;
+    top: 1rem;
+    left: 1rem;
+    height: 2.25rem;
   }
 }
 
-.body {
-  padding: 0.75rem;
+.rating {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: v.$radius-full;
+  background: rgba(23, 23, 23, 0.85);
+  color: v.$white;
+  font-size: 12px;
+  font-weight: 600;
 
   @include m.lg {
-    padding: 1rem;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 13px;
+  }
+}
+
+.starIcon {
+  height: 14px;
+  width: 14px;
+  color: v.$white;
+}
+
+.body {
+  padding: 0.75rem 0 0;
+
+  @include m.lg {
+    padding: 1rem 0 0;
   }
 }
 
 .name {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: v.$neutral-900;
   @include m.truncate;
+
+  @include m.lg {
+    font-size: 20px;
+  }
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  font-size: 13px;
+  color: v.$neutral-700;
 
   @include m.lg {
     font-size: 14px;
   }
 }
 
-.tag {
-  font-size: 11px;
-  color: v.$neutral-500;
-  @include m.truncate;
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
 
-  @include m.lg {
-    font-size: 12px;
-  }
+.metaIcon {
+  height: 16px;
+  width: 16px;
+  color: v.$neutral-700;
+}
+
+.metaDot {
+  color: v.$neutral-500;
 }

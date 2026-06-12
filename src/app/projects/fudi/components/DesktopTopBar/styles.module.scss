@@ -19,9 +19,15 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  max-width: v.$container-max;
+  width: 100%;
   padding: 0.75rem 1.5rem;
-  margin: 0 auto;
+}
+
+.logoSlot {
+  display: flex;
+  justify-content: center;
+  width: v.$sidebar-width;
+  flex-shrink: 0;
 }
 
 .addressButton {

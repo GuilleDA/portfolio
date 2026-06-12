@@ -39,69 +39,13 @@
 }
 
 .tracker {
-  position: relative;
   margin: 1.25rem 0 1rem;
 }
 
-.trackerLine {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-  right: 1rem;
-  height: 2px;
-  background: v.$neutral-700;
-  transform: translateY(-50%);
-}
-
-.steps {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.step {
-  position: relative;
-}
-
-.pulse {
-  position: absolute;
-  inset: 0;
-  margin: -0.5rem;
-  border-radius: v.$radius-full;
-  background: rgba(236, 72, 153, 0.3);
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.stepCircle {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: v.$radius-full;
-  background: v.$neutral-800;
-  color: v.$neutral-500;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.stepActive {
-  background: v.$pink-500;
-  color: v.$white;
-  box-shadow: v.$shadow-step-active;
-}
-
-.stepDone {
-  background: v.$neutral-700;
-  color: v.$neutral-300;
-}
-
-.stepIcon {
-  height: 1.25rem;
-  width: 1.25rem;
+.trackerImage {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .status {

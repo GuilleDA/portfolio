@@ -1,0 +1,186 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 1.25rem 4rem;
+  color: v.$neutral-900;
+
+  @include m.lg {
+    padding: 1.5rem 0 3rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+
+  @include m.lg {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$neutral-900;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  @include m.lg {
+    font-size: 24px;
+  }
+}
+
+.backIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+
+  @include m.lg {
+    display: none;
+  }
+}
+
+.count {
+  font-size: 13px;
+  color: v.$neutral-500;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.25rem;
+  overflow-x: auto;
+  @include m.scrollbar-hide;
+
+  @include m.lg {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding: 0.45rem 0.85rem;
+  border-radius: v.$radius-full;
+  background: v.$white;
+  border: 1px solid v.$neutral-200;
+  color: v.$neutral-700;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    background: v.$neutral-100;
+    color: v.$neutral-900;
+  }
+}
+
+.chipActive {
+  background: v.$neutral-900;
+  color: v.$white;
+  border-color: v.$neutral-900;
+
+  &:hover {
+    background: v.$neutral-800;
+    color: v.$white;
+  }
+}
+
+.chipIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.chipEmoji {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+
+  @include m.md {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @include m.lg {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 2.5rem 0;
+  padding: 2rem 1.5rem;
+  border-radius: v.$radius-2xl;
+  background: v.$white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+
+  @include m.lg {
+    margin: 3rem auto;
+    max-width: 28rem;
+  }
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: v.$neutral-900;
+}
+
+.emptyText {
+  margin-top: 0.4rem;
+  font-size: 13px;
+  color: v.$neutral-500;
+}
+
+.emptyCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: v.$radius-full;
+  background: v.$neutral-900;
+  color: v.$white;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: v.$neutral-800;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}

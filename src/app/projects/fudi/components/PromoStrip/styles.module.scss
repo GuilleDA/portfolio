@@ -3,7 +3,7 @@
 
 .root {
   background: v.$black;
-  color: v.$white;
+  color: #ffb2e4;
   @include m.safe-top;
 }
 
@@ -21,7 +21,9 @@
   letter-spacing: 0.025em;
   white-space: nowrap;
   text-transform: uppercase;
-  animation: marquee 18s linear infinite;
+  transform: translateX(-50%);
+  animation: promo-marquee 18s linear infinite;
+  will-change: transform;
 }
 
 .item {
@@ -31,5 +33,15 @@
 }
 
 .dot {
-  color: v.$neutral-500;
+  color: #ffb2e4;
+}
+
+@keyframes promo-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }

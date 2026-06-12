@@ -5,11 +5,11 @@ type PromoStripProps = {
 };
 
 const DEFAULT_ITEMS = [
-  "Your Table in 30",
   "On Your Table in 30",
   "On Your Table in 30",
-  "Free delivery for new users",
-  "Order now, eat in minutes",
+  "On Your Table in 30",
+  "On Your Table in 30",
+  "On Your Table in 30",
 ];
 
 export function PromoStrip({ items = DEFAULT_ITEMS }: PromoStripProps) {

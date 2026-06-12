@@ -1,13 +1,13 @@
-import { createTRPCReact } from "@trpc/react-query";
-import { httpBatchLink } from "@trpc/client";
-import type { AppRouter } from "../server/routers";
+import { createTRPCReact } from '@trpc/react-query';
+import { httpBatchLink } from '@trpc/client';
+import type { AppRouter } from '../../../api/src/types';
 
 export const trpc = createTRPCReact<AppRouter>();
 
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "/projects/fudi/api/trpc",
+      url: 'http://localhost:4000/trpc',
     }),
   ],
 });
